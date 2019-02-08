@@ -1,0 +1,29 @@
+
+.block {
+  margin-top: 3px;
+}
+
+.vblock {
+  margin-top: 3px;
+  border: 4px solid black;
+}
+
+.cblock {
+  margin-top: 3px;
+  border: 4px solid red;
+}
+
+.my-button  {
+  margin: 10px;
+}
+
+.display {
+  margin: 10px;
+  font-weight: bold;
+}
+
+.display-error {
+  margin: 10px;
+  font-weight: bold;
+  color: red;
+}

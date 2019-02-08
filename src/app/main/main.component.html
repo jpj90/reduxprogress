@@ -1,0 +1,25 @@
+<div class="display">
+  currentBlock index equals: {{currentBlock + 1 || 0}}
+</div>
+
+<div *ngFor="let color of colors" 
+style="width: 30px; height: 30px;"
+[ngClass]="color.selected ? 'cblock' : color.visited ? 'vblock' : 'block'"
+[ngStyle]="{'background-color': color.color}">
+</div>
+
+<button 
+  class="my-button"
+  (click)="stepForward()">
+  stepForward
+</button>
+
+<button 
+  class="my-button"
+  (click)="stepBackward()">
+  stepBackward
+</button>
+
+<div *ngIf="message" class="display-error">
+  {{message}}
+</div>
