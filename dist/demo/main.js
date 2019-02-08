@@ -6337,7 +6337,7 @@ var AppModule = /** @class */ (function () {
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"]],
-            providers: [],
+            providers: [_tracking_service_tracking_service__WEBPACK_IMPORTED_MODULE_7__["TrackingService"]],
             declarations: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"], _hello_component__WEBPACK_IMPORTED_MODULE_4__["HelloComponent"], _main_main_component__WEBPACK_IMPORTED_MODULE_5__["MainComponent"], _track_track_component__WEBPACK_IMPORTED_MODULE_6__["TrackComponent"], _tracking_service_tracking_service__WEBPACK_IMPORTED_MODULE_7__["TrackingService"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
         })
@@ -6424,15 +6424,21 @@ module.exports = "<div class=\"display\">\r\n  currentBlock index equals: {{curr
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainComponent", function() { return MainComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _tracking_service_tracking_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tracking-service/tracking.service */ "./src/app/tracking-service/tracking.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var MainComponent = /** @class */ (function () {
-    function MainComponent() {
+    function MainComponent(trackingService) {
+        this.trackingService = trackingService;
         this.name = 'Main';
         this.colors = [
             { color: "blue", visited: false, selected: false },
@@ -6456,6 +6462,7 @@ var MainComponent = /** @class */ (function () {
         this.colors[this.currentBlock].visited = true;
         this.currentBlock++;
         this.colors[this.currentBlock].selected = true;
+        this.trackingService.fireEvent("forward!");
         return;
     };
     MainComponent.prototype.stepBackward = function () {
@@ -6473,6 +6480,7 @@ var MainComponent = /** @class */ (function () {
         this.colors[this.currentBlock].visited = true;
         this.currentBlock--;
         this.colors[this.currentBlock].selected = true;
+        this.trackingService.fireEvent("backward!");
         return;
     };
     MainComponent = __decorate([
@@ -6480,7 +6488,8 @@ var MainComponent = /** @class */ (function () {
             selector: 'main-component',
             template: __webpack_require__(/*! ./main.component.html */ "./src/app/main/main.component.html"),
             styles: [__webpack_require__(/*! ./main.component.css */ "./src/app/main/main.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [_tracking_service_tracking_service__WEBPACK_IMPORTED_MODULE_1__["TrackingService"]])
     ], MainComponent);
     return MainComponent;
 }());
@@ -6522,15 +6531,21 @@ module.exports = "<p>\r\n  {{name}} component works!\r\n</p>\r\n\r\n"
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TrackComponent", function() { return TrackComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _tracking_service_tracking_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../tracking-service/tracking.service */ "./src/app/tracking-service/tracking.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var TrackComponent = /** @class */ (function () {
-    function TrackComponent() {
+    function TrackComponent(trackingService) {
+        this.trackingService = trackingService;
         this.name = 'Track';
         this.colors = [
             { color: "blue", visited: false, selected: false },
@@ -6538,6 +6553,9 @@ var TrackComponent = /** @class */ (function () {
             { color: "green", visited: false, selected: false },
             { color: "yellow", visited: false, selected: false }
         ];
+        this.trackingService.subject.subscribe(function (value) {
+            console.log(value);
+        });
     }
     TrackComponent.prototype.onMainStepForward = function () {
         if (this.currentBlock == undefined) {
@@ -6568,7 +6586,8 @@ var TrackComponent = /** @class */ (function () {
             selector: 'track-component',
             template: __webpack_require__(/*! ./track.component.html */ "./src/app/track/track.component.html"),
             styles: [__webpack_require__(/*! ./track.component.css */ "./src/app/track/track.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [_tracking_service_tracking_service__WEBPACK_IMPORTED_MODULE_1__["TrackingService"]])
     ], TrackComponent);
     return TrackComponent;
 }());
@@ -6588,6 +6607,7 @@ var TrackComponent = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TrackingService", function() { return TrackingService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6595,9 +6615,14 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
+
 var TrackingService = /** @class */ (function () {
     function TrackingService() {
+        this.subject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
     }
+    TrackingService.prototype.fireEvent = function (message) {
+        this.subject.next(message);
+    };
     TrackingService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
     ], TrackingService);

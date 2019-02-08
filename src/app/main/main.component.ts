@@ -36,6 +36,8 @@ export class MainComponent  {
     this.colors[this.currentBlock].visited = true;
     this.currentBlock++;
     this.colors[this.currentBlock].selected = true;
+
+    this.trackingService.fireEvent("forward!");
     return;
   }
 
@@ -54,6 +56,8 @@ export class MainComponent  {
     this.colors[this.currentBlock].visited = true;
     this.currentBlock--;
     this.colors[this.currentBlock].selected = true;
+
+    this.trackingService.fireEvent("backward!");
     return;
   }
 }

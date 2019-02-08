@@ -13,7 +13,7 @@ import { TrackingService } from './tracking-service/tracking.service';
 @NgModule({
   imports:      [ BrowserModule, FormsModule ],
   providers:    [ TrackingService ],
-  declarations: [ AppComponent, HelloComponent, MainComponent, TrackComponent, TrackingService ],
+  declarations: [ AppComponent, HelloComponent, MainComponent, TrackComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

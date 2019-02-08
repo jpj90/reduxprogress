@@ -8,9 +8,13 @@ import { TrackingService } from '../tracking-service/tracking.service';
 })
 export class TrackComponent  {
 
-  constructor(private trackingService: TrackingService) {}
+  constructor(private trackingService: TrackingService) {
+    this.trackingService.subject.subscribe(value => {
+      console.log(value);
+    });
+  }
 
-  name = 'Track';
+  name = 'Track';git 
 
   currentBlock: number;
 
